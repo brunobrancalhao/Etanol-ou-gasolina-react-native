@@ -1,0 +1,1 @@
+# Etanol-ou-gasolina-react-native
