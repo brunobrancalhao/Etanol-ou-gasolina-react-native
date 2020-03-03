@@ -1,28 +1,63 @@
-import React, { Component } from 'react';
-import { Text, View, Button } from 'react-native';
-import { inject, observer } from 'mobx-react';
+import {Button, Card, Input, Text} from '@ui-kitten/components';
+import React, {Component} from 'react';
+import {inject, observer} from 'mobx-react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import HomeStore from '../../stores/home.store';
+import {StyleSheet} from 'react-native';
 
 interface Props {
-    homeStore: HomeStore
+  homeStore: HomeStore;
 }
 
 @inject('homeStore')
 @observer
 export default class Home extends Component<Props> {
+  render() {
+    const {
+      etanol,
+      gasolina,
+      resultado,
+      calculate,
+      handleForm,
+    } = this.props.homeStore;
 
-    render() {
-        const { numbers, increment, decrement, reset} = this.props.homeStore;
+    return (
+      <>
+        <Text>
+          <Icon name="gas-station" size={30} color="#900" />
+        </Text>
+        <Card>
+          <Text>Etanol:</Text>
+          <Input
+            value={etanol.toString()}
+            onChangeText={etanol => handleForm({etanol})}
+          />
+          <Text>Gasolina:</Text>
+          <Input
+            value={gasolina.toString()}
+            onChangeText={gasolina => handleForm({gasolina})}
+          />
 
-        return (<>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Contador de Cliques</Text>
-                <Text>{numbers}</Text>
-                <Button onPress = {() => increment()} title = "Incrementar"></Button>
-                <Button onPress = {() => decrement()} title = "Decrementar"></Button>
-                <Button onPress = {() => reset()} title = "Zerar"></Button>
-            </View>
-        </>);
-    }
+          <Button onPress={() => calculate()}>Calcular</Button>
+          <Text style={styles.paragraph}>{resultado}</Text>
+        </Card>
+      </>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: '10',
+    padding: 8,
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});
