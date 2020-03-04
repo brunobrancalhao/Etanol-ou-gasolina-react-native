@@ -7,7 +7,7 @@ export default class HomeStore {
 
   @action calculate = () => {
     const {etanol, gasolina} = this;
-    console.log(etanol, gasolina);
+
     if (!isNaN(Number(etanol)) && !isNaN(Number(gasolina))) {
       const value = Number(etanol) / Number(gasolina);
 
