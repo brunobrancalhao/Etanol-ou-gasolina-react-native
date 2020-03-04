@@ -7,6 +7,7 @@ export default class HomeStore {
 
   @action calculate = () => {
     const {etanol, gasolina} = this;
+    console.log(etanol, gasolina);
     if (!isNaN(Number(etanol)) && !isNaN(Number(gasolina))) {
       const value = Number(etanol) / Number(gasolina);
 
@@ -23,7 +24,7 @@ export default class HomeStore {
   @action handleForm = input => {
     const key = Object.keys(input)[0];
     const value = input[key];
-    this[key] = value;
+    this[key] = value.replace('R$', '').replace(',', '.');
   };
 }
 const homeStore = new HomeStore();

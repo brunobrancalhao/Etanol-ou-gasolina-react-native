@@ -2,6 +2,9 @@ import {Button, Card, Input, Text} from '@ui-kitten/components';
 import React, {Component} from 'react';
 import {inject, observer} from 'mobx-react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+Icon.loadFont();
+
+import {TextInputMask} from 'react-native-masked-text';
 
 import HomeStore from '../../stores/home.store';
 import {StyleSheet} from 'react-native';
@@ -24,17 +27,22 @@ export default class Home extends Component<Props> {
 
     return (
       <>
-        <Text>
-          <Icon name="gas-station" size={30} color="#900" />
-        </Text>
         <Card>
+          <Icon
+            style={{textAlign: 'center'}}
+            name="local-gas-station"
+            size={200}
+            color="#000"
+          />
           <Text>Etanol:</Text>
-          <Input
+          <TextInputMask
+            type={'money'}
             value={etanol.toString()}
             onChangeText={etanol => handleForm({etanol})}
           />
           <Text>Gasolina:</Text>
-          <Input
+          <TextInputMask
+            type={'money'}
             value={gasolina.toString()}
             onChangeText={gasolina => handleForm({gasolina})}
           />
